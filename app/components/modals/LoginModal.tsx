@@ -13,10 +13,13 @@ import toast from "react-hot-toast";
 import Button from "@/app/components/Button";
 import useLoginModal from "@/hooks/useLoginModal";
 import useRegisterModal from "@/hooks/useRegisterModal";
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
+
 function LoginModal() {
   const loginModal = useLoginModal();
   const registerModal = useRegisterModal();
-
+  const router = useRouter();
   const [loading, setLoading] = useState(false);
   const {
     register,
@@ -24,7 +27,6 @@ function LoginModal() {
     formState: { errors },
   } = useForm<FieldValues>({
     defaultValues: {
-      name: "",
       email: "",
       password: "",
     },
@@ -32,34 +34,25 @@ function LoginModal() {
 
   function onSubmit(data: FieldValues) {
     setLoading(true);
-    axios
-      .post("/api/register", data)
-      .then(() => {
-        registerModal.close();
-      })
-      .catch((error) => {
-        toast.error("Something went wrong!");
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+    signIn("credentials", { ...data, redirect: false }).then((callback) => {
+      if (callback?.error) {
+        toast.error(callback.error);
+      } else {
+        toast.success("Logged in successfully!");
+        router.refresh();
+        loginModal.close();
+      }
+      setLoading(false);
+    });
   }
 
   const bodyContent = (
     <div className={"flex flex-col gap-4"}>
-      <Heading title={"Welcome to Airbnb"} subTitle={"Create an account!"} />
+      <Heading title={"Welcome back"} subTitle={"Login to your Account!"} />
       <Input
         register={register}
         id={"email"}
         label={"Email"}
-        disabled={loading}
-        required
-        errors={errors}
-      />
-      <Input
-        register={register}
-        id={"name"}
-        label={"Name"}
         disabled={loading}
         required
         errors={errors}
@@ -98,7 +91,7 @@ function LoginModal() {
           <div>Already have an account?</div>
           <div
             className={"text-neutral-800 cursor-pointer hover:underline"}
-            onClick={registerModal.close}
+            onClick={loginModal.close}
           >
             Log in
           </div>
@@ -111,7 +104,7 @@ function LoginModal() {
       disabled={loading}
       isOpen={loginModal.isOpen}
       onClose={loginModal.close}
-      title={"Register"}
+      title={"Login"}
       actionlabel={"Continue"}
       onSubmit={handleSubmit(onSubmit)}
       body={bodyContent}
