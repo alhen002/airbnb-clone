@@ -7,6 +7,7 @@ import ToasterProvider from "@/app/providers/ToasterProvider";
 import LoginModal from "@/app/components/modals/LoginModal";
 const inter = Inter({ subsets: ["latin"] });
 import getCurrentUser from "@/app/actions/getCurrentUser";
+
 export const metadata: Metadata = {
   title: "Airbnb",
   description: "Airbnb Clone",
@@ -18,6 +19,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   const currentUser = await getCurrentUser();
+  console.log(currentUser, "from layout");
   return (
     <html lang="en">
       <body className={inter.className}>

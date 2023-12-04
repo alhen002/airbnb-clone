@@ -12,8 +12,10 @@ import Heading from "@/app/components/Heading";
 import Input from "@/app/components/inputs/Input";
 import toast from "react-hot-toast";
 import Button from "@/app/components/Button";
+import { signIn } from "next-auth/react";
 function RegisterModal() {
   const registerModal = useRegisterModal();
+
   const [loading, setLoading] = useState(false);
   const {
     register,
@@ -78,14 +80,14 @@ function RegisterModal() {
       <hr />
       <Button
         label={"Continue with Google"}
-        onClick={() => {}}
+        onClick={() => signIn("google")}
         icon={FcGoogle}
         disabled={loading}
         outline
       />
       <Button
         label={"Continue with Github"}
-        onClick={() => {}}
+        onClick={() => signIn("github")}
         icon={AiFillGithub}
         disabled={loading}
         outline

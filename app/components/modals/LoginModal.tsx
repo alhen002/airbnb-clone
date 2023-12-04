@@ -74,14 +74,14 @@ function LoginModal() {
       <hr />
       <Button
         label={"Continue with Google"}
-        onClick={() => {}}
+        onClick={() => signIn("google")}
         icon={FcGoogle}
         disabled={loading}
         outline
       />
       <Button
         label={"Continue with Github"}
-        onClick={() => {}}
+        onClick={() => signIn("github")}
         icon={AiFillGithub}
         disabled={loading}
         outline
