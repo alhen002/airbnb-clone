@@ -3,8 +3,13 @@ import Container from "@/app/components/Container";
 import Logo from "@/app/components/navbar/Logo";
 import Search from "@/app/components/navbar/Search";
 import UserMenu from "@/app/components/navbar/UserMenu";
+import { User } from "@prisma/client";
 
-export default function Navbar() {
+interface NavbarProps {
+  currentUser: User | null;
+}
+
+export default function Navbar({ currentUser }: NavbarProps) {
   return (
     <div className={"fixed w-full bg-white z-10 shadow-sm"}>
       <div className={"py border-b-1[1px]"}>
@@ -16,7 +21,7 @@ export default function Navbar() {
           >
             <Logo />
             <Search />
-            <UserMenu />
+            <UserMenu currentUser={currentUser} />
           </div>
         </Container>
       </div>
