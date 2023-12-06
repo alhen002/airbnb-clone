@@ -3,11 +3,13 @@ import React, { useCallback } from "react";
 import { IconType } from "react-icons";
 import { useRouter, useSearchParams } from "next/navigation";
 import qs from "query-string";
+
 interface CategoryBoxProps {
   label: string;
   icon: IconType;
   selected?: boolean;
 }
+
 function CategoryBox({ label, icon: Icon, selected }: CategoryBoxProps) {
   const router = useRouter();
   const params = useSearchParams();
@@ -26,7 +28,15 @@ function CategoryBox({ label, icon: Icon, selected }: CategoryBoxProps) {
     if (params?.get("category") === label) {
       delete updatedQuery.category;
     }
-  }, []);
+    const url = qs.stringifyUrl(
+      {
+        url: "/",
+        query: updatedQuery,
+      },
+      { skipNull: true },
+    );
+    router.push(url);
+  }, [label, params, router]);
 
   return (
     <div

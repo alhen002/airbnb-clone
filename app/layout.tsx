@@ -7,6 +7,7 @@ import ToasterProvider from "@/app/providers/ToasterProvider";
 import LoginModal from "@/app/components/modals/LoginModal";
 const inter = Inter({ subsets: ["latin"] });
 import getCurrentUser from "@/app/actions/getCurrentUser";
+import RentModal from "@/app/components/modals/RentModal";
 
 export const metadata: Metadata = {
   title: "Airbnb",
@@ -24,6 +25,7 @@ export default async function RootLayout({
       <body className={inter.className}>
         <ToasterProvider />
         <RegisterModal />
+        <RentModal />
         <LoginModal />
         <Navbar currentUser={currentUser} />
         {children}
