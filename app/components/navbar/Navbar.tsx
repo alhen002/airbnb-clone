@@ -4,6 +4,7 @@ import Search from '@/app/components/navbar/Search';
 import UserMenu from '@/app/components/navbar/UserMenu';
 
 import getCurrentUser from '@/app/actions/getCurrentUser';
+import Categories from '@/app/components/navbar/Categories';
 
 const Navbar = async () => {
   const currentUser = await getCurrentUser();
@@ -18,6 +19,7 @@ const Navbar = async () => {
           </div>
         </Container>
       </div>
+      <Categories />
     </div>
   );
 };
