@@ -2,7 +2,7 @@
 
 import { AiFillGithub } from 'react-icons/ai';
 import { FcGoogle } from 'react-icons/fc';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import useRegisterModal from '@/app/hooks/useRegisterModal';
 import Modal from '@/app/components/modals/Modal';
@@ -18,7 +18,6 @@ const LoginModal = () => {
   const registerModal = useRegisterModal();
   const loginModal = useLoginModal();
   const router = useRouter();
-
   const [isLoading, setIsLoading] = useState(false);
   const {
     register,
@@ -44,6 +43,11 @@ const LoginModal = () => {
       toast.error('Invalid');
     }
   };
+
+  const toggle = useCallback(() => {
+    loginModal.onClose();
+    registerModal.onOpen();
+  }, [loginModal, registerModal]);
 
   const bodyContent = (
     <div className='flex flex-col gap-4'>
@@ -95,10 +99,10 @@ const LoginModal = () => {
         <div className='flex flex-row items-center justify-center gap-2'>
           <div>Don't have an account?</div>
           <div
-            onClick={loginModal.onClose}
+            onClick={toggle}
             className='cursor-pointer text-neutral-800 hover:underline'
           >
-            Register
+            Create an account
           </div>
         </div>
       </div>

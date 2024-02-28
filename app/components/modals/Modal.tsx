@@ -35,7 +35,6 @@ const Modal: FC<ModalProps> = ({
     setShowModal(isOpen);
   }, [isOpen]);
 
-  // handlefunctions
   const handleClose = useCallback(() => {
     if (disabled) {
       return;
@@ -45,6 +44,20 @@ const Modal: FC<ModalProps> = ({
       onClose();
     }, 300);
   }, [disabled, onClose]);
+
+  useEffect(() => {
+    const close = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        handleClose();
+      }
+    };
+    document.addEventListener('keydown', close);
+    return () => {
+      document.removeEventListener('keydown', close);
+    };
+  }, [onClose]);
+
+  // handlefunctions
 
   const handleSubmit = useCallback(() => {
     if (disabled) {
