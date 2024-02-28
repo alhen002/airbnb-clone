@@ -72,25 +72,33 @@ const LoginModal = () => {
     <div className='mt-3 flex flex-col gap-4'>
       <hr />
       <Button
-        onClick={() => {}}
+        onClick={() =>
+          signIn('google', {
+            redirect: false,
+          })
+        }
         label='Continue with Google'
         outline
         icon={FcGoogle}
       />
       <Button
-        onClick={() => {}}
+        onClick={() =>
+          signIn('github', {
+            redirect: false,
+          })
+        }
         label='Continue with Github'
         outline
         icon={AiFillGithub}
       />
       <div className='mt-4 text-center font-light text-neutral-500'>
         <div className='flex flex-row items-center justify-center gap-2'>
-          <div>Already hav e an account?</div>
+          <div>Don't have an account?</div>
           <div
             onClick={loginModal.onClose}
             className='cursor-pointer text-neutral-800 hover:underline'
           >
-            Login
+            Register
           </div>
         </div>
       </div>

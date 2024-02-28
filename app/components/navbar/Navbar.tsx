@@ -2,14 +2,11 @@ import Container from '@/app/components/Container';
 import Logo from '@/app/components/navbar/Logo';
 import Search from '@/app/components/navbar/Search';
 import UserMenu from '@/app/components/navbar/UserMenu';
-import { User } from '@prisma/client';
-import { FC } from 'react';
 
-interface NavBarProps {
-  currentUser?: User | null;
-}
-const Navbar: FC<NavBarProps> = ({ currentUser }) => {
-  console.log(currentUser);
+import getCurrentUser from '@/app/actions/getCurrentUser';
+
+const Navbar = async () => {
+  const currentUser = await getCurrentUser();
   return (
     <div className='fixed z-10 w-full bg-white shadow-sm'>
       <div className='border-b-[1px] py-4'>
